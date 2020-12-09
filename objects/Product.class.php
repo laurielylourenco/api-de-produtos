@@ -7,10 +7,7 @@
         public $id;
         public $name;
         public $tags;
-        
 
-/* "INSERT into". $this->table_name . "(id,name,tags) 
-                values (:id,:name,:tags)" */
         public function create(){
                 $stmt = $this->conn->prepare("INSERT INTO
                     " . $this->table_name . "
@@ -32,5 +29,15 @@
                     return false;
         }
         
+        public function read()
+        {
+            $stmt = $this->conn->prepare("SELECT *  from products where id=".$this->id);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC); 
+
+            $this->id = $row['id'];
+            $this->name = $row['name'];
+            $this->tags = $row['tags']; 
+        }
     }
     
