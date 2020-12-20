@@ -39,5 +39,22 @@
             $this->name = $row['name'];
             $this->tags = $row['tags']; 
         }
+
+        public function read_name($name)
+        {
+            
+          try {
+
+              $stmt = $this->conn->prepare("SELECT * from  products where name ='{$name}'");
+              $stmt->execute();
+              $listaDeProdutos = $stmt->fetchAll(PDO::FETCH_ASSOC);  
+    
+            return $listaDeProdutos;
+            
+          } catch (\Throwable $th) {
+            echo "deu ruim".$th->getMessage();
+          }
+        }
+
     }
     
